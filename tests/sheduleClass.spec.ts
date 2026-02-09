@@ -2,33 +2,34 @@ import { test, expect } from '../setup/testTool';
 import { variable } from '../config/testData';
 
 /**
- * Suite de tests para la funcionalidad de Login
+ * Suite de tests para programar clases (Schedule Class)
+ * Cubre el flujo completo desde login hasta asignación de clase
  */
-test.describe('Shedule Class', () => {
+test.describe('Schedule Class - Flujo completo', () => {
 
-    test.describe('Login', () => {
+    test('Debe asignar la clase', async ({ 
+        loginPage, 
+        schedulePage, 
+        page, 
+        startPage, 
+        classPage 
+    }) => {
+        // Login
+        await loginPage.goto();
+        await loginPage.waitForLoginPage();
+        expect(page.url()).toBe(variable.url);
+        await loginPage.login(variable.username, variable.password);
 
-        test('Shedule class', async ({ loginPage, schedulePage, page, startPage, classPage }) => {
-            // Navegar a la página de login
-            await loginPage.goto();
+        // Navegación a Schedule
+        await schedulePage.clickSchedule();
 
-            // Esperar a que la página de login esté completamente cargada
-            await loginPage.waitForLoginPage();
+        // Selección de nivel
+        await startPage.selectLevel();
 
-            // Verificar que la URL sea la esperada
-            expect(page.url()).toBe(variable.url);
+        // Asignar clase "CLASE 71" desde pendientes
+        await classPage.selectClass('CLASE 71');
 
-            // Realizar login con credenciales válidas
-            await loginPage.login(variable.username, variable.password);
-
-            // Verificar login exitoso: intentar hacer click en Schedule (esto espera que esté visible)
-            await schedulePage.clickSchedule();
-
-            await startPage.selectLevel();
-
-            // Buscar y asignar la clase "CLASE 71"
-            await classPage.selectClass('CLASE 71');
-        });
+        // ✅ TODO: Agregar validación de que la clase fue asignada exitosamente
+        // Por ejemplo: verificar mensaje de éxito, o que la clase ya no esté en pendientes
     });
-
 });

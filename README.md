@@ -178,3 +178,15 @@ Actualmente el proyecto no tiene scripts personalizados. Puedes agregar scripts 
 ## Licencia
 
 ISC
+
+
+Como inciar el proyecto con playwright. Primero este comando npm init playwright@latest luego va npx playwright test Para libreria de reportes allure es npm install --save-dev allure-playwright para dot env va este npm install dotenv --save-dev
+
+correr todas las pruebas npx playwright test o solo una npx playwright test tests/nombreArchivo.spec.ts
+
+npx allure serve pra mirar el reporte
+
+git clone repositorio para clonar el repositorio
+
+allure serve allure-results
+
